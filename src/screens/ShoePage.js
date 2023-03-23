@@ -1,8 +1,9 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Alert} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+import ShowModal from '../utils/ShowModal';
 
 const images = [
   require('../assets/images/shoe.jpg'),
@@ -22,7 +23,8 @@ const renderItem = ({item}) => (
 );
 
 const ShoePage = ({navigation, route}) => {
-  const [activeSlide, setActiveSlide] = React.useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
   return (
     <View
       style={{
@@ -59,9 +61,10 @@ const ShoePage = ({navigation, route}) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              Alert.alert('', 'Wow... I AM TEST.', [
-                {text: 'ok', onPress: () => console.log('OK Pressed')},
-              ]);
+              // Alert.alert('', 'Wow... I AM TEST.', [
+              //   {text: 'ok', onPress: () => console.log('OK Pressed')},
+              // ]);
+              setModalVisible(true);
             }}
             style={{
               width: 50,
@@ -263,6 +266,10 @@ const ShoePage = ({navigation, route}) => {
           </View>
         </View>
       </View>
+      <ShowModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </View>
   );
 };

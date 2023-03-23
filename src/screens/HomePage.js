@@ -11,6 +11,7 @@ import SplashScreen from './SplashScreen';
 import SnackPage from './SnackPage';
 import HealthPage from './HealthPage';
 import ShoePage from './ShoePage';
+import ShowModal from '../utils/ShowModal';
 
 const Stack = createStackNavigator();
 
@@ -68,6 +69,11 @@ const HomePage = () => {
         <Stack.Screen
           name="ShoePage"
           component={ShoePage}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ShowModal"
+          component={ShowModal}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

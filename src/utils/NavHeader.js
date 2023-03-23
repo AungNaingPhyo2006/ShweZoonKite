@@ -6,10 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import MyHeader from '../components/MyHeader';
+import ShowModal from './ShowModal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const NavHeader = ({navigation, title}) => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <SafeAreaView>
       <View
@@ -25,18 +28,23 @@ const NavHeader = ({navigation, title}) => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Text style={{color: 'darkblue'}}>Back</Text>
+          {/* <Text style={{color: 'darkblue'}}>Back</Text> */}
+          <Icon name="arrow-left" size={24} color="darkblue" />
         </TouchableOpacity>
         <View style={{}}>
           <Text style={{color: 'darkblue', fontWeight: 'bold'}}>{title}</Text>
         </View>
         <TouchableOpacity
           onPress={() => {
-            Alert.alert('I am test');
+            setModalVisible(true);
           }}>
-          <Text style={{color: 'darkblue'}}>Home</Text>
+          <Icon name="coffee" size={24} color="darkblue" />
         </TouchableOpacity>
       </View>
+      <ShowModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </SafeAreaView>
   );
 };
