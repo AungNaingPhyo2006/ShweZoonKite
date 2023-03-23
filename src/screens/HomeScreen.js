@@ -1,6 +1,35 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, TouchableOpacity, Animated} from 'react-native';
+import React, {useEffect, useRef} from 'react';
 import TextTickerScreen from '../example/TextTickerScreen';
+
+const SlideInUp = ({children, style}) => {
+  // const slideAnim = useRef(new Animated.Value(-100)).current; // slideinDown
+  const slideAnim = useRef(new Animated.Value(100)).current;
+
+  useEffect(() => {
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+  }, [slideAnim]);
+
+  return (
+    <Animated.View
+      style={[
+        {
+          transform: [
+            {
+              translateY: slideAnim,
+            },
+          ],
+        },
+        style,
+      ]}>
+      {children}
+    </Animated.View>
+  );
+};
 
 const HomeScreen = ({navigation}) => {
   return (
@@ -11,35 +40,37 @@ const HomeScreen = ({navigation}) => {
         />
       </View>
 
-      <TouchableOpacity
-        style={styles.taskTitle}
-        onPress={() => navigation.navigate('CookPage')}>
-        <Text>Recipes</Text>
-      </TouchableOpacity>
+      <SlideInUp style={styles.container}>
+        <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('CookPage')}>
+          <Text>Favourite Recipes</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.taskTitle}
-        onPress={() => navigation.navigate('SnackPage')}>
-        <Text>Snack</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('SnackPage')}>
+          <Text>Delicious Snacks </Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.taskTitle}
-        onPress={() => navigation.navigate('HealthPage')}>
-        <Text>Health Knowledge</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('HealthPage')}>
+          <Text>Health Knowledge</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.taskTitle}
-        onPress={() => navigation.navigate('OtherDetails')}>
-        <Text>Details Knowledge</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('OtherDetails')}>
+          <Text>Details Knowledge</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.taskTitle}
-        onPress={() => navigation.navigate('ShoePage')}>
-        <Text>Shoe Page</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('ShoePage')}>
+          <Text>Shoe Page</Text>
+        </TouchableOpacity>
+      </SlideInUp>
     </View>
   );
 };

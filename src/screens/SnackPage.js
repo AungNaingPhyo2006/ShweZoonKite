@@ -32,7 +32,7 @@ const SnackPage = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <NavHeader navigation={navigation} title={'Recipes'} />
+      <NavHeader navigation={navigation} title={'Snacks'} />
       <SectionList
         sections={snackData}
         renderItem={renderMenu}

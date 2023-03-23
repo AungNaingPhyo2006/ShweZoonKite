@@ -32,7 +32,7 @@ const HealthPage = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <NavHeader navigation={navigation} title={'Recipes'} />
+      <NavHeader navigation={navigation} title={'Health Knowledge'} />
       <SectionList
         sections={healthData}
         renderItem={renderMenu}
