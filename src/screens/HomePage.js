@@ -12,6 +12,8 @@ import SnackPage from './SnackPage';
 import HealthPage from './HealthPage';
 import ShoePage from './ShoePage';
 import ShowModal from '../utils/ShowModal';
+import SearchTest from '../utils/SearchTest';
+import TestScreen from './TestScreen';
 
 const Stack = createStackNavigator();
 
@@ -62,8 +64,8 @@ const HomePage = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Text"
-          component={Text}
+          name="SearchTest"
+          component={SearchTest}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -74,6 +76,11 @@ const HomePage = () => {
         <Stack.Screen
           name="ShowModal"
           component={ShowModal}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="TestScreen"
+          component={TestScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

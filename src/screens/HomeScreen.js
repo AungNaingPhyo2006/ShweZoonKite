@@ -70,6 +70,18 @@ const HomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('ShoePage')}>
           <Text>Shoe Page</Text>
         </TouchableOpacity>
+
+        {/* <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('SearchTest')}>
+          <Text>Search Test</Text>
+        </TouchableOpacity> */}
+
+        <TouchableOpacity
+          style={styles.taskTitle}
+          onPress={() => navigation.navigate('TestScreen')}>
+          <Text>Test</Text>
+        </TouchableOpacity>
       </SlideInUp>
     </View>
   );

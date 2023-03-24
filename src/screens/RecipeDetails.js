@@ -5,6 +5,7 @@ import NavHeader from '../utils/NavHeader';
 const RecipeDetails = ({navigation, route}) => {
   // console.log(route);
   const {item} = route.params;
+  // console.log(item);
   return (
     <View>
       <NavHeader navigation={navigation} title={'Recipes Details'} />
