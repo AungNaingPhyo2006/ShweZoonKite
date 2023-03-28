@@ -9,6 +9,9 @@ import {
 import React from 'react';
 import recipeData from '../data/recipeData';
 import NavHeader from '../utils/NavHeader';
+import SearchTest from '../utils/SearchTest';
+import Search from '../utils/Search';
+
 const CookPage = ({navigation}) => {
   const renderMenu = ({item}) => {
     return (
@@ -26,13 +29,20 @@ const CookPage = ({navigation}) => {
   const renderHeader = ({section}) => {
     return (
       <View>
-        <Text style={styles.taskTitle}>{section.title}</Text>
+        <Text style={styles.taskTitle}>{section.title} </Text>
       </View>
     );
   };
+  const SearchMe = data => {
+    // Alert.alert('i am test');
+    navigation.navigate('SearchRecipes', {setData: data});
+  };
+
   return (
     <View style={styles.container}>
       <NavHeader navigation={navigation} title={'Recipes'} />
+      <Search onPress={() => SearchMe(recipeData)} />
+
       <SectionList
         sections={recipeData}
         renderItem={renderMenu}
@@ -69,6 +79,7 @@ const styles = StyleSheet.create({
     margin: 10,
     marginBottom: 0,
     borderRadius: 10,
+    textAlign: 'center',
   },
   card: {
     backgroundColor: '#fff',

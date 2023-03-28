@@ -1,47 +1,33 @@
-import React, {useState} from 'react';
-import {View, TextInput, FlatList, Text} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Search = ({recipeData}) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = text => {
-    setSearchQuery(text);
-  };
-
-  const filteredData = query => {
-    const filteredData = recipeData.filter(recipe => {
-      const nameMatch = recipe.data.filter(item =>
-        item.name.toLowerCase().includes(query.toLowerCase()),
-      );
-      const descriptionMatch = recipe.data.filter(item =>
-        item.description.toLowerCase().includes(query.toLowerCase()),
-      );
-      return nameMatch.length > 0 || descriptionMatch.length > 0;
-    });
-    return filteredData;
-  };
-
-  const renderItem = ({item}) => (
-    <View style={{padding: 10}}>
-      <Text>{item.title}</Text>
-    </View>
-  );
-
+const Search = ({navigation, onPress}) => {
   return (
-    <View style={{flex: 1}}>
-      <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={handleSearch}
-        value={searchQuery}
-        placeholder="Search"
-      />
-      <FlatList
-        data={filteredData(searchQuery)}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+    <View>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'row',
+          backgroundColor: 'pink',
+          marginHorizontal: 10,
+          padding: 11,
+          borderRadius: 5,
+        }}>
+        <Text style={{color: 'blue'}}>Search</Text>
+        <Icon
+          name="search"
+          size={20}
+          color="#900"
+          style={{marginHorizontal: 5}}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
 
 export default Search;
+
+const styles = StyleSheet.create({});

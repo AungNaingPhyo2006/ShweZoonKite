@@ -12,7 +12,10 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ActualDimensions from '../utils/ActualDimensions';
 
-const SearchTest = ({navigation, setData}) => {
+const SearchRecipes = ({navigation, route}) => {
+  const {setData} = route.params;
+  // console.log(recipeData);
+
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
@@ -69,38 +72,7 @@ const SearchTest = ({navigation, setData}) => {
           </TouchableOpacity>
         )}
       </View>
-      {/* <--------------> */}
-      {/* <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          marginVertical: 15,
-          borderRadius: 10,
-          backgroundColor: 'pink',
-        }}>
-        <TextInput
-          placeholder="Search recipe name or description"
-          style={{
-            height: 50,
-            paddingHorizontal: 5,
-            // backgroundColor: 'blue',
-          }}
-          value={searchText}
-          onChangeText={text => handleSearch(text)}
-          // onChangeText={text => setSearchText(text)}
-        />
-        {searchText !== '' && (
-          <TouchableOpacity
-            onPress={handleClear}
-            style={{
-              height: 50,
-              // backgroundColor: 'pink',
-              justifyContent: 'center',
-            }}>
-            <Icon name="times" size={24} color="black" />
-          </TouchableOpacity>
-        )}
-      </View> */}
+
       <View>
         {searchText !== '' ? (
           <FlatList
@@ -142,7 +114,7 @@ const SearchTest = ({navigation, setData}) => {
     </View>
   );
 };
-export default SearchTest;
+export default SearchRecipes;
 
 const styles = StyleSheet.create({
   container: {flex: 1, marginHorizontal: 12},

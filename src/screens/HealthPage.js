@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import healthData from '../data/healthData';
 import NavHeader from '../utils/NavHeader';
+import Search from '../utils/Search';
 const HealthPage = ({navigation}) => {
   const renderMenu = ({item}) => {
     return (
@@ -30,9 +31,15 @@ const HealthPage = ({navigation}) => {
       </View>
     );
   };
+
+  const SearchMe = data => {
+    navigation.navigate('SearchRecipes', {setData: data});
+  };
+
   return (
     <View style={styles.container}>
       <NavHeader navigation={navigation} title={'Health Knowledge'} />
+      <Search onPress={() => SearchMe(healthData)} />
       <SectionList
         sections={healthData}
         renderItem={renderMenu}

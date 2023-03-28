@@ -14,6 +14,7 @@ import ShoePage from './ShoePage';
 import ShowModal from '../utils/ShowModal';
 import SearchTest from '../utils/SearchTest';
 import TestScreen from './TestScreen';
+import SearchRecipes from '../utils/SearchRecipes';
 
 const Stack = createStackNavigator();
 
@@ -81,6 +82,11 @@ const HomePage = () => {
         <Stack.Screen
           name="TestScreen"
           component={TestScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SearchRecipes"
+          component={SearchRecipes}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
