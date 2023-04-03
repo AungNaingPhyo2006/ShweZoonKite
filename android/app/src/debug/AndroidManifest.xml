@@ -3,11 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
+    <!-- for google map -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+    <!-- FOR BACKSTATE TRACKER PLAYER -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> 
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="28"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false" />
+   <!-- for google map -->
+     <!-- <meta-data
+     android:name="com.google.android.geo.API_KEY"
+     android:value="AIzaSyALnrZPpREU9l2AvVbS1GlYqaFVbB9t7Q8"/>
+      <uses-library android:name="org.apache.http.legacy" android:required="false"/> -->
+      <!-- FOR BACKSTATE TRACKER PLAYER -->
+      <receiver android:name="com.jamesisaac.rnbackgroundtask.HeadlessCheck" android:enabled="true" />
     </application>
 </manifest>

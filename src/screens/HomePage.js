@@ -2,15 +2,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import CookPage from './CookPage';
+import CookPage from './home/CookPage';
 import OtherDetails from './OtherDetails';
 import NavHeader from '../utils/NavHeader';
-import HomeScreen from './HomeScreen';
+import HomeScreen1 from './HomeScreen1';
 import RecipeDetails from './RecipeDetails';
 import SplashScreen from './SplashScreen';
-import SnackPage from './SnackPage';
-import HealthPage from './HealthPage';
-import ShoePage from './ShoePage';
+import SnackPage from './home/SnackPage';
+import HealthPage from './home/HealthPage';
+import ShoePage from './home/ShoePage';
 import ShowModal from '../utils/ShowModal';
 import SearchTest from '../utils/SearchTest';
 import TestScreen from './TestScreen';
@@ -20,16 +20,16 @@ const Stack = createStackNavigator();
 
 const HomePage = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <Stack.Navigator initialRouteName="Splash" screenOptions={{}}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Splash"
           component={SplashScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Home1"
+          component={HomeScreen1}
           options={{headerShown: false}}
         />
         <Stack.Screen

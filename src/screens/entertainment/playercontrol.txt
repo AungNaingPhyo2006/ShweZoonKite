@@ -1,0 +1,136 @@
+import {Alert, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import TrackPlayer, {
+  useTrackPlayerEvents,
+  usePlaybackState,
+  Event,
+  State,
+} from 'react-native-track-player';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import BackgroundTask from 'react-native-background-task';
+
+const PlayerControl = ({onShuffle}) => {
+  const [sleepTime, setSleepTime] = useState(null); // sleep timer
+  const [sleepIcon, setSleepIcon] = useState('clock-o');
+  const [activeSleepIcon, setActiveSleepIcon] = useState('clock-o');
+
+  const playerState = usePlaybackState();
+
+  async function handlePlayPress() {
+    if ((await TrackPlayer.getState()) == State.Playing) {
+      TrackPlayer.pause();
+    } else {
+      TrackPlayer.play();
+    }
+  }
+  //Icon change
+  useEffect(() => {
+    if (sleepTime !== null) {
+      setSleepIcon(activeSleepIcon);
+    } else {
+      setSleepIcon('clock-o');
+    }
+  }, [sleepTime, activeSleepIcon]);
+
+  // SLEEPTIME start
+  const setSleepTimer = minutes => {
+    const now = new Date();
+    const sleepTime = now.getTime() + minutes * 60 * 1000; // Convert minutes to milliseconds
+    setSleepTime(sleepTime);
+    setActiveSleepIcon('stop-circle'); // Set the active icon to 'stopwatch'
+  };
+
+  useEffect(() => {
+    const progressListener = TrackPlayer.addEventListener(
+      Event.PlaybackProgressUpdated,
+      ({position, duration}) => {
+        if (sleepTime !== null && sleepTime <= new Date().getTime()) {
+          TrackPlayer.pause();
+        }
+      },
+    );
+
+    return () => {
+      progressListener.remove();
+    };
+  }, [sleepTime]);
+
+  async function sleepTimes() {
+    setSleepTimer(1); // Set sleep timer for 1 minute, you can replace this with any desired sleep time
+  }
+
+  // async function sleepTimes(minutes) {
+  //   let sleepMinutes;
+  //   switch (minutes) {
+  //     case 5:
+  //       sleepMinutes = 5;
+  //       break;
+  //     case 10:
+  //       sleepMinutes = 10;
+  //       break;
+  //     case 15:
+  //       sleepMinutes = 15;
+  //       break;
+  //     case 20:
+  //       sleepMinutes = 20;
+  //       break;
+  //     case 25:
+  //       sleepMinutes = 25;
+  //       break;
+  //     case 30:
+  //       sleepMinutes = 30;
+  //       break;
+  //     case 60:
+  //       sleepMinutes = 60;
+  //       break;
+  //     default:
+  //       sleepMinutes = 0;
+  //   }
+
+  //   if (sleepMinutes > 0) {
+  //     setSleepTimer(sleepMinutes);
+  //   }
+  // }
+
+  // sleep time end
+  return (
+    <View
+      style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center'}}>
+      <Icon.Button
+        name="arrow-left"
+        size={28}
+        backgroundColor="transparent"
+        onPress={() => TrackPlayer.skipToPrevious()}
+      />
+      <Icon.Button
+        name={playerState == State.Playing ? 'pause' : 'play'}
+        size={28}
+        backgroundColor="transparent"
+        onPress={handlePlayPress}
+      />
+      <Icon.Button
+        name="arrow-right"
+        size={28}
+        backgroundColor="transparent"
+        onPress={() => TrackPlayer.skipToNext()}
+      />
+      <Icon.Button
+        name="random"
+        size={28}
+        backgroundColor="transparent"
+        onPress={onShuffle}
+      />
+      <Icon.Button
+        name={sleepIcon}
+        size={28}
+        backgroundColor="transparent"
+        onPress={sleepTimes}
+        // onPress={() => sleepTimes(10)}
+      />
+    </View>
+  );
+};
+
+export default PlayerControl;
+
+const styles = StyleSheet.create({});

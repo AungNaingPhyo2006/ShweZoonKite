@@ -6,9 +6,9 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 33
         targetSdkVersion = 33
-
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
+         //playServicesVersion = "17.0.0" //google map
     }
     repositories {
         google()
@@ -17,5 +17,15 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:7.3.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
+        //implementation project(':MyShweZoonKite') //google map
+      //  implementation 'com.google.android.gms:play-services-maps:20.1.0'
+       // implementation 'com.google.android.gms:play-services-location:19.0.1'
+       //for google map
+        // implementation(project(':react-native-maps')){
+        //     exclude group: 'com.google.android.gms', module: 'play-services-base'
+        //     exclude group: 'com.google.android.gms', module: 'play-services-maps'
+        //     }
+        //     implementation 'com.google.android.gms:play-services-base:17.2.1'
+        //     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     }
 }

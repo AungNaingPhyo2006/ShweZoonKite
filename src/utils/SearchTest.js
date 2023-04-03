@@ -11,14 +11,14 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ActualDimensions from '../utils/ActualDimensions';
-
-const SearchTest = ({navigation, setData}) => {
+import recipeData from '../data/recipeData';
+const SearchTest = ({navigation}) => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
   const handleSearch = text => {
     setSearchText(text);
-    const newData = setData[0].data.filter(item => {
+    const newData = recipeData[0].data.filter(item => {
       const itemName = item.name.toLowerCase();
       const itemDesc = item.description.toLowerCase();
       const textData = text.toLowerCase();
