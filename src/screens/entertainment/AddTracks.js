@@ -1,7 +1,14 @@
 import TrackPlayer, {RepeatMode} from 'react-native-track-player';
 
 export async function addTracks(tracks) {
+  // if (!tracks) {
+  //   console.warn('Tracks are not defined.');
+  //   return;
+  // }
+
   await TrackPlayer.add(tracks);
+  // await TrackPlayer.add(tracks.filter(track => !track.url));
+
   await TrackPlayer.setRepeatMode(RepeatMode.Queue);
 
   TrackPlayer.addEventListener('playback-track-changed', async event => {

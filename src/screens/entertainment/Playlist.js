@@ -18,7 +18,7 @@ import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PlayerControl from './PlayerControl';
 
-const Playlist = ({navigation}) => {
+const Playlist = () => {
   const [queue, setQueue] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(0);
 
@@ -65,10 +65,12 @@ const Playlist = ({navigation}) => {
     loadPlaylist();
   }
 
+  console.log('Hi i am ', queue);
   return (
     <View>
       <View style={styles.playlist}>
         <FlatList
+          keyExtractor={item => item.id}
           data={queue}
           renderItem={({item, index}) => (
             <PlaylistItem

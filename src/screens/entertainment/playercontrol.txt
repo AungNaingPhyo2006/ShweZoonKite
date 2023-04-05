@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import TrackPlayer, {
   useTrackPlayerEvents,
@@ -7,13 +7,17 @@ import TrackPlayer, {
   State,
 } from 'react-native-track-player';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import BackgroundTask from 'react-native-background-task';
+import SleepModal from './SleepModal';
+import BackgroundTimer from 'react-native-background-timer';
 
 const PlayerControl = ({onShuffle}) => {
   const [sleepTime, setSleepTime] = useState(null); // sleep timer
-  const [sleepIcon, setSleepIcon] = useState('clock-o');
-  const [activeSleepIcon, setActiveSleepIcon] = useState('clock-o');
 
+  const [sleepModalVisible, setSleepModalVisible] = useState(false);
+
+  const onClose = () => {
+    setSleepModalVisible(false);
+  };
   const playerState = usePlaybackState();
 
   async function handlePlayPress() {
@@ -23,29 +27,39 @@ const PlayerControl = ({onShuffle}) => {
       TrackPlayer.play();
     }
   }
-  //Icon change
-  useEffect(() => {
-    if (sleepTime !== null) {
-      setSleepIcon(activeSleepIcon);
-    } else {
-      setSleepIcon('clock-o');
-    }
-  }, [sleepTime, activeSleepIcon]);
 
-  // SLEEPTIME start
   const setSleepTimer = minutes => {
-    const now = new Date();
-    const sleepTime = now.getTime() + minutes * 60 * 1000; // Convert minutes to milliseconds
-    setSleepTime(sleepTime);
-    setActiveSleepIcon('stop-circle'); // Set the active icon to 'stopwatch'
+    if (minutes === 'stop') {
+      setSleepTime(null);
+    } else {
+      // const now = new Date();
+      // const sleepTime = now.getTime() + minutes * 60 * 1000; // Convert minutes to milliseconds
+      // setSleepTime(sleepTime);
+      // setSleepModalVisible(false);
+      const now = new Date();
+      const sleepTime = now.getTime() + minutes * 60 * 1000;
+      setSleepTime(sleepTime);
+      setSleepModalVisible(false);
+
+      BackgroundTimer.runBackgroundTimer(() => {
+        if (sleepTime <= new Date().getTime()) {
+          TrackPlayer.pause();
+          TrackPlayer.reset();
+          BackgroundTimer.stopBackgroundTimer();
+        }
+      }, 1000);
+    }
   };
 
   useEffect(() => {
     const progressListener = TrackPlayer.addEventListener(
       Event.PlaybackProgressUpdated,
+
       ({position, duration}) => {
+        // console.log('I am called');
         if (sleepTime !== null && sleepTime <= new Date().getTime()) {
           TrackPlayer.pause();
+          // TrackPlayer.reset();
         }
       },
     );
@@ -55,47 +69,84 @@ const PlayerControl = ({onShuffle}) => {
     };
   }, [sleepTime]);
 
-  async function sleepTimes() {
-    setSleepTimer(1); // Set sleep timer for 1 minute, you can replace this with any desired sleep time
+  // async function sleepTimes() {
+  //   setSleepTimer(1); // Set sleep timer for 1 minute, you can replace this with any desired sleep time
+  // }
+  const onStop = () => {
+    setSleepTimer(null);
+    setSleepModalVisible(false);
+    BackgroundTimer.stopBackgroundTimer();
+  };
+
+  async function sleepTimes(minutes) {
+    let sleepMinutes;
+    switch (minutes) {
+      case 5:
+      case 10:
+      case 15:
+      case 30:
+      case 45:
+      case 60:
+      case 'stop':
+        sleepMinutes = minutes;
+        break;
+      default:
+        sleepMinutes = 0;
+
+      // case 5:
+      //   sleepMinutes = 5;
+      //   break;
+      // case 10:
+      //   sleepMinutes = 10;
+      //   break;
+      // case 15:
+      //   sleepMinutes = 15;
+      //   break;
+      // case 30:
+      //   sleepMinutes = 30;
+      //   break;
+      // case 45:
+      //   sleepMinutes = 45;
+      //   break;
+      // case 60:
+      //   sleepMinutes = 60;
+      //   break;
+      // case 'stop':
+      //   sleepMinutes = 'stop';
+      //   break;
+      // default:
+      //   sleepMinutes = 0;
+    }
+
+    if (sleepMinutes > 0) {
+      setSleepTimer(sleepMinutes);
+    }
   }
 
-  // async function sleepTimes(minutes) {
-  //   let sleepMinutes;
-  //   switch (minutes) {
-  //     case 5:
-  //       sleepMinutes = 5;
-  //       break;
-  //     case 10:
-  //       sleepMinutes = 10;
-  //       break;
-  //     case 15:
-  //       sleepMinutes = 15;
-  //       break;
-  //     case 20:
-  //       sleepMinutes = 20;
-  //       break;
-  //     case 25:
-  //       sleepMinutes = 25;
-  //       break;
-  //     case 30:
-  //       sleepMinutes = 30;
-  //       break;
-  //     case 60:
-  //       sleepMinutes = 60;
-  //       break;
-  //     default:
-  //       sleepMinutes = 0;
-  //   }
-
-  //   if (sleepMinutes > 0) {
-  //     setSleepTimer(sleepMinutes);
-  //   }
-  // }
+  // const timestamp = sleepTime;
+  // const date = new Date(timestamp);
+  // const dateString = date.toLocaleString(); // adjust options as needed
+  //console.log(dateString); // outputs something like "3/27/2023, 3:27:59 PM"
 
   // sleep time end
+
+  // useTrackPlayerEvents([Event.PlaybackQueueEnded], async event => {
+  //   if (
+  //     event.type === Event.PlaybackQueueEnded &&
+  //     event.nextTrack !== undefined
+  //   ) {
+  //     TrackPlayer.stop();
+  //   }
+  // });
   return (
     <View
       style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center'}}>
+      <Icon.Button
+        name="random"
+        size={28}
+        backgroundColor="transparent"
+        onPress={onShuffle}
+      />
       <Icon.Button
         name="arrow-left"
         size={28}
@@ -114,18 +165,27 @@ const PlayerControl = ({onShuffle}) => {
         backgroundColor="transparent"
         onPress={() => TrackPlayer.skipToNext()}
       />
-      <Icon.Button
-        name="random"
-        size={28}
-        backgroundColor="transparent"
-        onPress={onShuffle}
-      />
-      <Icon.Button
-        name={sleepIcon}
-        size={28}
-        backgroundColor="transparent"
-        onPress={sleepTimes}
-        // onPress={() => sleepTimes(10)}
+
+      {sleepTime === null ? (
+        <Icon.Button
+          name="clock-o"
+          size={28}
+          backgroundColor="transparent"
+          // onPress={sleepTimes}     // onPress={() => sleepTimes(10)}
+          onPress={() => setSleepModalVisible(!sleepModalVisible)}
+        />
+      ) : (
+        <TouchableOpacity
+          onPress={() => setSleepModalVisible(!sleepModalVisible)}>
+          <Text style={{color: '#fff'}}>⏰</Text>
+        </TouchableOpacity>
+      )}
+
+      <SleepModal
+        visible={sleepModalVisible}
+        onClose={onClose}
+        onSelect={sleepTimes}
+        onStop={onStop}
       />
     </View>
   );

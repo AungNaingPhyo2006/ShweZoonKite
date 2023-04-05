@@ -33,8 +33,8 @@ const TrackHeader = () => {
         justifyContent: 'space-between',
         marginVertical: 9,
       }}>
-      <Text style={styles.songTitle}>{info.title}</Text>
-      <Text style={styles.artistName}>{info.artist}</Text>
+      <Text style={styles.songTitle}>{info?.title}</Text>
+      <Text style={styles.artistName}>{info?.artist}</Text>
     </View>
   );
 };

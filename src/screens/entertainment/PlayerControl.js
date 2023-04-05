@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import TrackPlayer, {
   useTrackPlayerEvents,
@@ -8,108 +8,202 @@ import TrackPlayer, {
 } from 'react-native-track-player';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SleepModal from './SleepModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment';
+import BackgroundTimer from 'react-native-background-timer';
 
 const PlayerControl = ({onShuffle}) => {
   const [sleepTime, setSleepTime] = useState(null); // sleep timer
-
   const [sleepModalVisible, setSleepModalVisible] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(null);
+  const [playerState, setPlayerState] = useState(null); // player state
+  const [sleepTimeoutId, setSleepTimeoutId] = useState(null);
+  const [testTime, setTestTime] = useState(null);
+  const [asyncSotrageTime, setAsyncStorageTime] = useState(null);
+  // console.log('i am sleeptime', sleepTime);
+  // console.log('i am remaining time', remainingTime);
+  // console.log('i am playerState', playerState);
+  //console.log('i am remainingTime', remainingTime);
 
   const onClose = () => {
     setSleepModalVisible(false);
   };
-  const playerState = usePlaybackState();
 
   async function handlePlayPress() {
-    if ((await TrackPlayer.getState()) == State.Playing) {
-      TrackPlayer.pause();
+    if (playerState === State.Playing) {
+      setPlayerState(State.Paused);
+      await TrackPlayer.pause();
+      stopTimer(); //+
+
+      // if (sleepTimeoutId) {
+      //   // console.log(sleepTimeoutId);
+      //   clearTimeout(sleepTimeoutId);
+      // }
     } else {
-      TrackPlayer.play();
+      await TrackPlayer.play();
+      setPlayerState(State.Playing);
     }
   }
 
-  const setSleepTimer = minutes => {
-    // const now = new Date();
-    // const sleepTime = now.getTime() + minutes * 60 * 1000; // Convert minutes to milliseconds
-    // setSleepTime(sleepTime);
+  const stopTimer = async => {
+    const now = new Date().getTime();
+    const startTime = AsyncStorage.getItem('sleepTimer');
 
+    const difference = parseInt(startTime) - now;
+
+    TrackPlayer.pause();
+    console.log('Diff==>', difference);
+    // console.log('Start==>', startTime);
+
+    AsyncStorage.setItem('sleepTimer', difference.toString());
+    // setSleepTime(null);
+    setAsyncStorageTime(difference);
+  };
+  // console.log('asynstorage', asyncSotrageTime);
+
+  const setSleepTimer = async minutes => {
     if (minutes === 'stop') {
       setSleepTime(null);
+      await AsyncStorage.removeItem('sleepTimer');
     } else {
       const now = new Date();
-      const sleepTime = now.getTime() + minutes * 60 * 1000; // Convert minutes to milliseconds
+      const sleepTime = now.getTime() + minutes * 60 * 1000;
+      await AsyncStorage.setItem('sleepTimer', sleepTime.toString());
       setSleepTime(sleepTime);
-
       setSleepModalVisible(false);
+
+      const sleepTimeout = setTimeout(() => {
+        if (sleepTime <= new Date().getTime()) {
+          TrackPlayer.pause();
+          setSleepTime(null);
+          AsyncStorage.removeItem('sleepTimer');
+        }
+      }, minutes * 60 * 1000);
+      setSleepTimeoutId(sleepTimeout); //+
     }
   };
 
   useEffect(() => {
+    const loadSleepTimer = async () => {
+      const sleepTimer = await AsyncStorage.getItem('sleepTimer');
+      if (sleepTimer !== null) {
+        setSleepTime(parseInt(sleepTimer));
+      }
+    };
+    loadSleepTimer();
+  }, []);
+
+  useEffect(() => {
+    // Start the sleep timer
+    const startSleepTimer = async () => {
+      const timerEnd = new Date().getTime() + sleepTime * 60 * 1000;
+      setSleepTime(timerEnd);
+      await AsyncStorage.setItem('sleepTimer', JSON.stringify(timerEnd));
+    };
+
+    if (sleepTime && !sleepTime) {
+      startSleepTimer();
+    }
+
+    // Clear the sleep timer when playback ends
+    const clearSleepTimer = async () => {
+      setSleepTime(null);
+      await AsyncStorage.removeItem('sleepTimer');
+    };
+
+    const endOfQueueListener = TrackPlayer.addEventListener(
+      Event.EndOfQueue,
+      clearSleepTimer,
+    );
+
+    const playbackStateListener = TrackPlayer.addEventListener(
+      Event.PlaybackState,
+      async ({state}) => {
+        setPlayerState(state);
+        // Stop the sleep timer if the track has ended or been stopped
+        if (state === State.Stopped || state === State.Ended) {
+          setSleepTime(null);
+          await AsyncStorage.removeItem('sleepTimer');
+        }
+      },
+    );
+
     const progressListener = TrackPlayer.addEventListener(
       Event.PlaybackProgressUpdated,
       ({position, duration}) => {
         if (sleepTime !== null && sleepTime <= new Date().getTime()) {
           TrackPlayer.pause();
-          TrackPlayer.reset();
+          setSleepTime(null);
+          AsyncStorage.removeItem('sleepTimer');
         }
       },
     );
 
+    // Remove all event listeners when the component unmounts
     return () => {
+      endOfQueueListener.remove();
+      playbackStateListener.remove();
       progressListener.remove();
     };
   }, [sleepTime]);
 
-  // async function sleepTimes() {
-  //   setSleepTimer(1); // Set sleep timer for 1 minute, you can replace this with any desired sleep time
-  // }
-  const onStop = () => {
-    console.log('I am working');
+  // for remaining time indicating live
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (sleepTime !== null && sleepTime > new Date().getTime()) {
+        const remainingTimeMs = sleepTime - new Date().getTime();
+        const remainingTimeMin = Math.floor(remainingTimeMs / 1000 / 60);
+        const remainingTimeSec = Number.isFinite(remainingTimeMs)
+          ? Math.floor((remainingTimeMs / 1000) % 60)
+          : 0;
+        setRemainingTime(
+          `${remainingTimeMin}:${
+            remainingTimeSec < 10 ? '0' : ''
+          }${remainingTimeSec}`,
+        );
+      } else {
+        setRemainingTime(null);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [sleepTime]);
+
+  const onStop = async () => {
     setSleepTimer(null);
     setSleepModalVisible(false);
+    await AsyncStorage.removeItem('sleepTimer');
   };
 
-  async function sleepTimes(minutes) {
+  const sleepTimes = async minutes => {
     let sleepMinutes;
     switch (minutes) {
       case 5:
-        sleepMinutes = 5;
-        break;
       case 10:
-        sleepMinutes = 10;
-        break;
       case 15:
-        sleepMinutes = 15;
-        break;
-      case 20:
-        sleepMinutes = 20;
-        break;
-      case 25:
-        sleepMinutes = 25;
-        break;
       case 30:
-        sleepMinutes = 30;
-        break;
+      case 45:
       case 60:
-        sleepMinutes = 60;
-        break;
       case 'stop':
-        sleepMinutes = 'stop';
+        sleepMinutes = minutes;
         break;
       default:
         sleepMinutes = 0;
     }
 
     if (sleepMinutes > 0) {
+      await AsyncStorage.setItem('sleepMinutes', sleepMinutes.toString());
       setSleepTimer(sleepMinutes);
+
+      // Play the track if it's not playing
+      if (playerState !== State.Playing) {
+        handlePlayPress();
+      }
     }
-  }
+  };
 
-  // const timestamp = sleepTime;
-  // const date = new Date(timestamp);
-  // const dateString = date.toLocaleString(); // adjust options as needed
-  //console.log(dateString); // outputs something like "3/27/2023, 3:27:59 PM"
-
-  // sleep time end
   return (
     <View
       style={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center'}}>
@@ -147,9 +241,17 @@ const PlayerControl = ({onShuffle}) => {
           onPress={() => setSleepModalVisible(!sleepModalVisible)}
         />
       ) : (
-        <View onPress={() => setSleepModalVisible(!sleepModalVisible)}>
-          <Text style={{color: '#fff'}}>hi</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => setSleepModalVisible(!sleepModalVisible)}>
+          <Text style={{color: '#fff'}}>
+            {sleepTime !== null
+              ? moment
+                  .utc(Math.max(sleepTime - new Date().getTime(), 0))
+                  .format('m:ss')
+              : ''}
+            ⏰
+          </Text>
+        </TouchableOpacity>
       )}
 
       <SleepModal
