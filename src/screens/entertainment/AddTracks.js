@@ -33,6 +33,27 @@ const tracks = [
     artist: 'အောင်သူ',
     duration: 352.078,
   },
+  {
+    id: '3',
+    url: require('../../assets/songs/track3.mp3'),
+    title: 'ဒဏ်ရာများနဲ့',
+    artist: 'အိုင်ရင်းဇင်မာမြင့်',
+    duration: 198.112,
+  },
+  {
+    id: '4',
+    url: require('../../assets/songs/track4.mp3'),
+    title: 'မေ့မှာပါ',
+    artist: '၀ိုင်၀ိုင်း',
+    duration: 255.216,
+  },
+  {
+    id: '5',
+    url: require('../../assets/songs/track5.mp3'),
+    title: 'ကိုယ်ပိုင်တဲ့ကိုယ့်နေရာ',
+    artist: 'ရှင်ဖုန်း',
+    duration: 188.16,
+  },
 ];
 
 addTracks(tracks);

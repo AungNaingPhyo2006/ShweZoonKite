@@ -52,7 +52,7 @@ const SleepModal = ({visible, onClose, onSelect, onStop}) => {
                   fontSize: 16,
                   marginBottom: 10,
                 }}>
-                {time} minutes
+                {time === 60 ? '1 hour' : `${time} minutes`}
               </Text>
             </TouchableOpacity>
           ))}
