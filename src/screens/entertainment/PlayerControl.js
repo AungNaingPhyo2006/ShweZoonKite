@@ -56,7 +56,7 @@ const PlayerControl = ({onShuffle}) => {
       intervalId = setInterval(() => {
         setTest(prev => prev - 1);
       }, 1000);
-    } else if (!isActive && test <= 0) {
+    } else if (!isActive) {
       clearInterval(intervalId);
       console.log('clearInterval is run', test);
     }
@@ -68,8 +68,7 @@ const PlayerControl = ({onShuffle}) => {
     if (minutes === 'stop') {
       setSleepTime(null);
     } else {
-      const now = new Date();
-      const sleepTime = minutes * 60; //* 60 * 1000
+      const sleepTime = minutes * 60; // to convert minutes to seconds
 
       setSleepTime(sleepTime);
       setTest(sleepTime); //add ++
