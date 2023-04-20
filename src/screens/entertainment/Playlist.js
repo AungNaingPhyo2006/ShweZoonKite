@@ -65,20 +65,33 @@ const Playlist = () => {
     loadPlaylist();
   }
 
-  console.log('Hi i am ', queue);
+  console.log('queue from playlistComponent ', queue);
   return (
     <View>
       <View style={styles.playlist}>
         <FlatList
           keyExtractor={item => item.id}
           data={queue}
-          renderItem={({item, index}) => (
-            <PlaylistItem
-              index={index}
-              title={item.title}
-              isCurrent={currentTrack == index}
-            />
-          )}
+          // renderItem={({item, index}) => (
+          //   <PlaylistItem
+          //     index={index}
+          //     title={item.title}
+          //     isCurrent={currentTrack == index}
+          //   />
+          // )}
+          renderItem={({item, index}) => {
+            if (!item || !item.title) {
+              return null;
+            }
+
+            return (
+              <PlaylistItem
+                index={index}
+                title={item.title}
+                isCurrent={currentTrack == index}
+              />
+            );
+          }}
         />
       </View>
       <View
