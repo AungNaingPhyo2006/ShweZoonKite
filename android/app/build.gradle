@@ -149,6 +149,10 @@ android {
 }
 
 dependencies {
+//for react-native-background-fetch
+//implementation project(':react-native-background-fetch')
+  implementation project(':react-native-background-actions')
+
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 

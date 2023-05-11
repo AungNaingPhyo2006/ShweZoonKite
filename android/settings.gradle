@@ -9,3 +9,9 @@ project(':MyShweZoonKite').projectDir = new File(rootProject.projectDir, '../nod
 //for backgroundTimer
 include ':react-native-background-timer'
 project(':react-native-background-timer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-timer/android')
+//for background-fetch
+//include ':react-native-background-fetch'
+//project(':react-native-background-fetch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-fetch/android')
+// for background-actions
+include ':react-native-background-actions'
+project(':react-native-background-actions').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-actions/android')

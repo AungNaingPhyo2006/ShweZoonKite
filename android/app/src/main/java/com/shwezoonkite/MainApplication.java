@@ -10,6 +10,9 @@ import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
 import com.airbnb.android.react.maps.MapsPackage;  //google map
+//import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;// background-fetch
+import com.asterinet.react.bgactions.BackgroundActionsPackage;//+++
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           // packages.add(new MapsPackage()); //google map
+         // packages.add(new RNBackgroundFetchPackage()) // background-fetch
+      //   packages.add(new BackgroundActionsPackage()); // background-actions //+++
           return packages;
         }
 

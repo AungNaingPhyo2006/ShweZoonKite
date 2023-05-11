@@ -13,6 +13,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        //for rnBackground-fetch
+         mavenLocal()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.3.1")
@@ -27,5 +29,6 @@ buildscript {
         //     }
         //     implementation 'com.google.android.gms:play-services-base:17.2.1'
         //     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+       
     }
 }

@@ -1,11 +1,18 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import Timer from '../screens/entertainment/Timer';
+import {createStackNavigator} from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 const SearchStack = () => {
   return (
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-      <Text>searchStack</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Timer"
+        component={Timer}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
   );
 };
 

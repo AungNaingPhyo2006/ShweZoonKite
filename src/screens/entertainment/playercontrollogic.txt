@@ -17,17 +17,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import SleepModal from './SleepModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import BackgroundTimer from 'react-native-background-actions';
+import BackgroundTimer from 'react-native-background-timer';
+//<------------>
 
 const PlayerControl = ({onShuffle}) => {
   const [sleepTime, setSleepTime] = useState(null); // sleep timer
   const [sleepModalVisible, setSleepModalVisible] = useState(false);
   const [playerState, setPlayerState] = useState(null); // player state
   const [isActive, setIsActive] = useState(false);
-  const [minutes, setMinutes] = useState(false); // to get current set sleep minutes
+  // const [minutes, setMinutes] = useState(false); // to get current set sleep minutes
   const [test, setTest] = useState(0);
 
-  //console.log('hello, hello testing->', test);
+  console.log('hello, hello testing->', test);
 
   const onClose = () => {
     setSleepModalVisible(false);
@@ -54,7 +55,26 @@ const PlayerControl = ({onShuffle}) => {
   };
 
   //<-------+-------->
-  // If isActive is true and sleepTime is not null, the timer will run until test reaches 0. When isActive becomes false, the timer is cleared using clearInterval().
+
+  // useEffect(() => {
+  //   let intervalId = null;
+  //   if (isActive && sleepTime !== null) {
+  //     if (test === 0) {
+  //       console.log('stopped');
+  //       setPlayerState(State.Paused);
+  //       return;
+  //     }
+  //     intervalId = setInterval(() => {
+  //       setTest(prev => prev - 1);
+  //     }, 1000);
+  //   } else if (!isActive) {
+  //     clearInterval(intervalId);
+  //     console.log('clearInterval is run', test);
+  //   }
+  //   //clear the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, [isActive, test, sleepTime]);
+
   useEffect(() => {
     let intervalId = null;
     if (isActive && sleepTime !== null) {
@@ -63,21 +83,24 @@ const PlayerControl = ({onShuffle}) => {
         setPlayerState(State.Paused);
         return;
       }
-      intervalId = setInterval(() => {
-        setTest(prev => prev - 1);
-        console.log('playercontrol running interval', test);
+      const start = Date.now();
+      intervalId = BackgroundTimer.setInterval(() => {
+        const delta = Date.now() - start;
+        setTest(prev => prev - Math.floor(delta / 1000));
       }, 1000);
     } else if (!isActive) {
-      clearInterval(intervalId);
+      BackgroundTimer.clearInterval(intervalId);
       console.log('clearInterval is run', test);
     }
     //clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
+    return () => {
+      BackgroundTimer.clearInterval(intervalId);
+    };
   }, [isActive, test, sleepTime]);
 
   //<------>
 
-  const setSleepTimerFn = async minutes => {
+  const setSleepTimer = async minutes => {
     if (minutes === 'stop') {
       setSleepTime(null);
     } else {
@@ -88,27 +111,6 @@ const PlayerControl = ({onShuffle}) => {
       setSleepModalVisible(false);
     }
   };
-  //<-------------------test----------------------->
-
-  // const [task, setTask] = useState(1000);
-
-  // const isTimerRunning = useRef(false);
-
-  // TrackPlayer.addEventListener(
-  //   Event.PlaybackProgressUpdated,
-  //   ({position, duration}) => {
-  //     if (!isTimerRunning) {
-  //       isTimerRunning = true;
-
-  //       const intervalId = setInterval(() => {
-  //         setTask(prev => prev - 10);
-  //         // console.log('test ===>', task);
-  //       }, 1000);
-
-  //       // return () => clearInterval(intervalId);
-  //     }
-  //   },
-  // );
 
   //<---------------------->
 
@@ -129,7 +131,7 @@ const PlayerControl = ({onShuffle}) => {
     return () => {
       progressListener.remove();
     };
-  }, [sleepTime, test, isActive]);
+  }, [sleepTime, test]);
 
   // <------->
 
@@ -156,8 +158,8 @@ const PlayerControl = ({onShuffle}) => {
     }
 
     if (sleepMinutes > 0) {
-      setSleepTimerFn(sleepMinutes);
-      setMinutes(sleepMinutes); // add for minutes
+      setSleepTimer(sleepMinutes);
+      //setMinutes(sleepMinutes); // add for minutes
       // Play the track if it's not playing
       if (playerState !== State.Playing) {
         console.log('i am playing in sleepTimes Fn with: ', sleepMinutes);
@@ -233,129 +235,3 @@ const PlayerControl = ({onShuffle}) => {
 export default PlayerControl;
 
 const styles = StyleSheet.create({});
-
-//<---------Origin Code ------------>
-
-// const [sleepTime, setSleepTime] = useState(null); // sleep timer
-// const [sleepModalVisible, setSleepModalVisible] = useState(false);
-// const [playerState, setPlayerState] = useState(null); // player state
-// const [isActive, setIsActive] = useState(false);
-// // const [minutes, setMinutes] = useState(false); // to get current set sleep minutes
-// const [test, setTest] = useState(0);
-
-// console.log('hello, hello testing->', test);
-
-// const onClose = () => {
-//   setSleepModalVisible(false);
-// };
-
-// async function handlePlayPress() {
-//   if (playerState === State.Playing) {
-//     await TrackPlayer.pause();
-//     setPlayerState(State.Paused);
-//     stopTimer();
-//   } else {
-//     await TrackPlayer.play();
-//     setPlayerState(State.Playing);
-//     startTimer();
-//   }
-// }
-
-// const stopTimer = async () => {
-//   setIsActive(false);
-// };
-
-// const startTimer = () => {
-//   setIsActive(true);
-// };
-
-// //<-------+-------->
-// // If isActive is true and sleepTime is not null, the timer will run until test reaches 0. When isActive becomes false, the timer is cleared using clearInterval().
-// useEffect(() => {
-//   let intervalId = null;
-//   if (isActive && sleepTime !== null) {
-//     if (test === 0) {
-//       console.log('stopped');
-//       setPlayerState(State.Paused);
-//       return;
-//     }
-//     intervalId = setInterval(() => {
-//       setTest(prev => prev - 1);
-//     }, 1000);
-//   } else if (!isActive) {
-//     clearInterval(intervalId);
-//     console.log('clearInterval is run', test);
-//   }
-//   //clear the interval when the component unmounts
-//   return () => clearInterval(intervalId);
-// }, [isActive, test, sleepTime]);
-
-// //<------>
-
-// const setSleepTimerFn = async minutes => {
-//   if (minutes === 'stop') {
-//     setSleepTime(null);
-//   } else {
-//     const sleepTime = minutes * 60; // to convert minutes to seconds
-
-//     setSleepTime(sleepTime);
-//     setTest(sleepTime); //add
-//     setSleepModalVisible(false);
-//   }
-// };
-
-// //<---------------------->
-
-// useEffect(() => {
-//   //to stop songs when sleep timer is over
-//   const progressListener = TrackPlayer.addEventListener(
-//     Event.PlaybackProgressUpdated,
-//     ({position, duration}) => {
-//       if (sleepTime !== null && test === 0) {
-//         TrackPlayer.pause();
-//         setSleepTime(null);
-//         setTest(0);
-//         console.log('PlaybackProgressUpdated is running');
-//       }
-//     },
-//   );
-//   // Remove  event listener when the component unmounts
-//   return () => {
-//     progressListener.remove();
-//   };
-// }, [sleepTime, test]);
-
-// // <------->
-
-// const onStop = async () => {
-//   setSleepTime(null);
-//   setTest(0);
-//   setSleepModalVisible(false);
-// };
-
-// const sleepTimes = async minutes => {
-//   let sleepMinutes;
-//   switch (minutes) {
-//     case 5:
-//     case 10:
-//     case 15:
-//     case 30:
-//     case 45:
-//     case 60:
-//     case 'stop':
-//       sleepMinutes = minutes;
-//       break;
-//     default:
-//       sleepMinutes = 0;
-//   }
-
-//   if (sleepMinutes > 0) {
-//     setSleepTimerFn(sleepMinutes);
-//     //setMinutes(sleepMinutes); // add for minutes
-//     // Play the track if it's not playing
-//     if (playerState !== State.Playing) {
-//       console.log('i am playing in sleepTimes Fn with: ', sleepMinutes);
-//       handlePlayPress();
-//     }
-//   }
-// };
