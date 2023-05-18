@@ -16,7 +16,9 @@ import TestScreen from '../screens/TestScreen';
 import SearchRecipes from '../utils/SearchRecipes';
 import Map from '../screens/Map';
 import Map1 from '../screens/Map1';
-
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import MapDrawer from '../screens/MapDrawer';
+const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const HomeStack = () => {
