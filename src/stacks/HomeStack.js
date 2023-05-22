@@ -18,6 +18,7 @@ import Map from '../screens/Map';
 import Map1 from '../screens/Map1';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MapDrawer from '../screens/MapDrawer';
+import MapBottomSheet from '../screens/shopping/MapBottomSheet';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -87,9 +88,14 @@ const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen name="Map" component={Map} options={{headerShown: false}} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Map1"
         component={Map1}
+        options={{headerShown: false}}
+      /> */}
+      <Stack.Screen
+        name="MapBottomSheet"
+        component={MapBottomSheet}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

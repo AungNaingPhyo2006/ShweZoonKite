@@ -35,9 +35,14 @@ const HomeScreen = ({navigation}) => {
         onPress={() => navigation.navigate('Map')}>
         <Text>Google Map</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.taskTitle}
         onPress={() => navigation.navigate('Map1')}>
+        <Text>Google Map One</Text>
+      </TouchableOpacity> */}
+      <TouchableOpacity
+        style={styles.taskTitle}
+        onPress={() => navigation.navigate('MapBottomSheet')}>
         <Text>Google Map One</Text>
       </TouchableOpacity>
     </View>

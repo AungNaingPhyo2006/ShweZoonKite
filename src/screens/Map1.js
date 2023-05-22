@@ -9,6 +9,8 @@ import {
   StyleSheet,
   Animated,
   Easing,
+  Modal,
+  TextInput,
 } from 'react-native';
 import MapView, {Marker, Circle} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -18,6 +20,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import MapInfoModal from './MapInfoModal';
 import MapSearchModal from './MapSearchModal';
+import MapBottomSheet from './shopping/MapBottomSheet';
 
 const Drawer = createDrawerNavigator();
 const Map1 = ({navigation}) => {
@@ -86,6 +89,7 @@ const Map1 = ({navigation}) => {
   const SearchModalOpen = () => {
     setIsSearchModal(!isSearchModal);
   };
+
   return (
     <View style={{flex: 1}}>
       {currentLocation && (
@@ -119,10 +123,19 @@ const Map1 = ({navigation}) => {
           options={{
             drawerProps: {
               // Pass your props here
-              closeDrawer: closeDrawer,
-              isDrawerOpen: isDrawerOpen,
               navigation: navigation,
-              toggleDrawerMenu: toggleDrawerMenu,
+              toggleDrawer: toggleDrawer,
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="MapSearchDrawer"
+          component={MapSearchModal}
+          options={{
+            drawerProps: {
+              // Pass your props here
+              navigation: navigation,
+              toggleDrawer: toggleDrawer,
             },
           }}
         />
@@ -172,12 +185,56 @@ const Map1 = ({navigation}) => {
             <IconFontAwesome name="crosshairs" size={24} color={'white'} />
           </View>
         </TouchableOpacity>
+      </View>
+      {/* <------Modal footer-----> */}
+      {/* <View style={styles.modalFooter}>
+        <View
+          style={{
+            height: 80,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TouchableOpacity
+            style={styles.inputContainer}
+            onPress={() => {
+              Alert.alert('', 'Hi');
+            }}>
+            <IconFontAwesome
+              name="search"
+              size={24}
+              color="white"
+              style={styles.icon}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Search by name"
+              placeholderTextColor="white"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              marginVertical: 15,
+              marginHorizontal: 3,
+              width: 50,
+              height: 50,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 50,
+            }}>
+            <IconFontAwesome name="plug" size={24} color={'#514BC3'} />
+          </TouchableOpacity>
+        </View>
+
         <MapSearchModal
           isSearchModal={isSearchModal}
           SearchModalOpen={SearchModalOpen}
           setIsSearchModal={setIsSearchModal}
         />
-      </View>
+      </View> */}
+
+      {/* <MapBottomSheet /> */}
+
       {!currentLocation && <Text>Loading...</Text>}
     </View>
   );
@@ -221,5 +278,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 50,
+  },
+  modalFooter: {
+    width: 400,
+    height: 90,
+    backgroundColor: 'red',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 9999,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 15,
+    backgroundColor: 'pink',
+    borderRadius: 20,
+    width: '80%',
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    color: 'white',
+  },
+  icon: {
+    marginLeft: 10,
   },
 });

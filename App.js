@@ -4,6 +4,7 @@ import BottomTabNavigator from './TabNavigator/BottomTabNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import SplashScreen1 from './src/screens/SplashScreen';
 import {View} from 'react-native';
+import DrawerTest from './src/screens/DrawerTest';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);

@@ -7,18 +7,29 @@ import {
   TouchableOpacity,
   Text,
   PanResponder,
+  Animated,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const MapSearchModal = ({isSearchModal, SearchModalOpen, setIsSearchModal}) => {
+  const [marginTop, setMarginTop] = useState(690);
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (e, gestureState) => {
+        // Adjust the marginTop based on the vertical gesture distance
+        const newMarginTop = gestureState.dy >= 0 ? 690 + gestureState.dy : 50;
+        setMarginTop(newMarginTop);
+      },
       onPanResponderRelease: (e, gestureState) => {
-        if (gestureState.dy > 20) {
+        if (gestureState.dy < 20) {
           // Close the modal when dragged down by a certain threshold (e.g., 50)
           setIsSearchModal(false);
+        } else {
+          // Reset the marginTop to 50 if the gesture is not sufficient to close the modal
+          setMarginTop(50);
         }
       },
     }),
@@ -27,10 +38,12 @@ const MapSearchModal = ({isSearchModal, SearchModalOpen, setIsSearchModal}) => {
   return (
     <View style={styles.container}>
       <Modal visible={isSearchModal} transparent animationType="slide">
-        <View style={styles.modalContainer} {...panResponder.panHandlers}>
+        <View
+          style={[styles.modalContainer, {marginTop}]}
+          {...panResponder.panHandlers}>
           <View style={{marginVertical: 20}}>
             <TouchableOpacity
-              onPress={SearchModalOpen}
+              // onPress={SearchModalOpen}
               style={styles.closeButton}></TouchableOpacity>
           </View>
 
@@ -51,11 +64,11 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    marginTop: 50,
+    // marginTop: 690,
     backgroundColor: '#0D1724',
     // backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    // borderTopLeftRadius: 20,
+    // borderTopRightRadius: 20,
   },
   drawerContent: {
     height: '80%',

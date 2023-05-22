@@ -1126,6 +1126,21 @@
   "resolved" "https://registry.npmjs.org/@eslint/js/-/js-8.35.0.tgz"
   "version" "8.35.0"
 
+"@gorhom/bottom-sheet@^4.4.6":
+  "integrity" "sha512-okqJPtFQjfqPZdh6wGDzQKkMevG1IfplQeoWY0VqOFCp3E0p7WHNeW41voK7KXXCVTQaGXibPfd9GNGjXgFNyg=="
+  "resolved" "https://registry.npmjs.org/@gorhom/bottom-sheet/-/bottom-sheet-4.4.6.tgz"
+  "version" "4.4.6"
+  dependencies:
+    "@gorhom/portal" "1.0.14"
+    "invariant" "^2.2.4"
+
+"@gorhom/portal@1.0.14":
+  "integrity" "sha512-MXyL4xvCjmgaORr/rtryDNFy3kU4qUbKlwtQqqsygd0xX3mhKjOLn6mQK8wfu0RkoE0pBE0nAasRoHua+/QZ7A=="
+  "resolved" "https://registry.npmjs.org/@gorhom/portal/-/portal-1.0.14.tgz"
+  "version" "1.0.14"
+  dependencies:
+    "nanoid" "^3.3.1"
+
 "@hapi/hoek@^9.0.0":
   "integrity" "sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ=="
   "resolved" "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.3.0.tgz"
@@ -1958,7 +1973,7 @@
     "@types/react" "*"
     "@types/react-native" "^0.70"
 
-"@types/react-native@^0.70":
+"@types/react-native@*", "@types/react-native@^0.70":
   "integrity" "sha512-FobPtzoNPNHugBKMfzs4Li0Q9ei4tgU8SI1M5Ayg7+t5/+noCm2sknI8uwij22wMkcHcefv8RFx4q28nNVJtCQ=="
   "resolved" "https://registry.npmjs.org/@types/react-native/-/react-native-0.70.11.tgz"
   "version" "0.70.11"
@@ -6029,7 +6044,7 @@
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
   "version" "2.1.3"
 
-"nanoid@^3.1.23":
+"nanoid@^3.1.23", "nanoid@^3.3.1":
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
   "version" "3.3.4"
@@ -6610,7 +6625,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@*", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@*", "prop-types@^15.5.8", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -6762,15 +6777,30 @@
   "resolved" "https://registry.npmjs.org/react-native-contacts/-/react-native-contacts-7.0.5.tgz"
   "version" "7.0.5"
 
+"react-native-drawer-layout@^3.2.0":
+  "integrity" "sha512-d/kvzeBhXjqcRGlfkTSB96ZRKH6g6YxJK+gPtUOCOCH5piHpsupgX+tLAHdM8r8NUzN6Tl9656xfJTuVb8Zrgw=="
+  "resolved" "https://registry.npmjs.org/react-native-drawer-layout/-/react-native-drawer-layout-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "use-latest-callback" "^0.1.5"
+
+"react-native-drawer@^2.5.1":
+  "integrity" "sha512-cxcQNbSWy5sbGi7anSVp6EDr6JarOBMY9lbFOeLFeVYbONiudoqRKbgEsSDgSw3/LFCLvUXK5zdjXCOedeytxQ=="
+  "resolved" "https://registry.npmjs.org/react-native-drawer/-/react-native-drawer-2.5.1.tgz"
+  "version" "2.5.1"
+  dependencies:
+    "prop-types" "^15.5.8"
+    "tween-functions" "^1.0.1"
+
 "react-native-geolocation-service@^5.3.1":
   "integrity" "sha512-LTXPtPNmrdhx+yeWG47sAaCgQc3nG1z+HLLHlhK/5YfOgfLcAb9HAkhREPjQKPZOUx8pKZMIpdGFUGfJYtimXQ=="
   "resolved" "https://registry.npmjs.org/react-native-geolocation-service/-/react-native-geolocation-service-5.3.1.tgz"
   "version" "5.3.1"
 
-"react-native-gesture-handler@^2.10.0", "react-native-gesture-handler@>= 1.0.0":
-  "integrity" "sha512-vuNupfa8+6MAUMgbZMk5jSxrmqWyNnR/gR77/iuhdx6cPg1z2MJeeJNmqEtKQcF0InvHp45dOoyRK62peqTJ3Q=="
-  "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.10.0.tgz"
-  "version" "2.10.0"
+"react-native-gesture-handler@^2.10.1", "react-native-gesture-handler@>= 1.0.0", "react-native-gesture-handler@>=1.10.1":
+  "integrity" "sha512-vDJx3KnheMLEPg35chQW6aiNGqfv3tmWGRRzmfVvqnvvIt5pNkxXe8+x7CYpfIAAnqNLaK1xiozvMkzZPRw1vw=="
+  "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.10.1.tgz"
+  "version" "2.10.1"
   dependencies:
     "@egjs/hammerjs" "^2.0.17"
     "hoist-non-react-statics" "^3.3.0"
@@ -6827,7 +6857,7 @@
     "prop-types" "^15.6.2"
     "react-native-animatable" "1.3.3"
 
-"react-native-reanimated@^3.1.0", "react-native-reanimated@>= 1.0.0":
+"react-native-reanimated@^3.1.0", "react-native-reanimated@>= 1.0.0", "react-native-reanimated@>=2.2.0":
   "integrity" "sha512-8YJR7yHnrqK6yKWzkGLVEawi1WZqJ9bGIehKEnE8zG58yLrSwUZe1T220XTbftpkA3r37Sy0kJJ/HOOiaIU+HQ=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.1.0.tgz"
   "version" "3.1.0"
@@ -7964,6 +7994,11 @@
   "version" "0.6.0"
   dependencies:
     "safe-buffer" "^5.0.1"
+
+"tween-functions@^1.0.1":
+  "integrity" "sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA=="
+  "resolved" "https://registry.npmjs.org/tween-functions/-/tween-functions-1.2.0.tgz"
+  "version" "1.2.0"
 
 "tweetnacl@^0.14.3", "tweetnacl@~0.14.0":
   "integrity" "sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA=="

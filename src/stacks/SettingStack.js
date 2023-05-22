@@ -5,6 +5,10 @@ import Timertest from '../screens/shopping/Timertest';
 import Quote from '../screens/shopping/Quote';
 import BackTimer from '../screens/shopping/BackTimer';
 import Contact from '../screens/shopping/Contact';
+import DrawerFooter from '../screens/shopping/DrawerFooter';
+import BottomDrawer from '../screens/shopping/BottomDrawer';
+import BottomSheet from '../screens/shopping/BottomSheetPro';
+import BottomSheetPro from '../screens/shopping/BottomSheetPro';
 const Stack = createStackNavigator();
 
 const SettingStack = () => {
@@ -26,9 +30,24 @@ const SettingStack = () => {
         component={BackTimer}
         options={{headerShown: false}}
       /> */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Contact"
         component={Contact}
+        options={{headerShown: false}}
+      /> */}
+      {/* <Stack.Screen
+        name="DrawerFooter"
+        component={DrawerFooter}
+        options={{headerShown: false}}
+      /> */}
+      {/* <Stack.Screen
+        name="BottomDrawer"
+        component={BottomDrawer}
+        options={{headerShown: false}}
+      /> */}
+      <Stack.Screen
+        name="BottomSheetPro"
+        component={BottomSheetPro}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
