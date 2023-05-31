@@ -1,0 +1,51 @@
+export default stationPlaces = [
+	{
+		id: 1,
+		name: "Shwedagon Pagoda",
+		description: "The famous pagoda of Myanmar",
+		latitude: 16.7984,
+		longitude: 96.1489,
+	},
+	{
+		id: 2,
+		name: "Kandawgyi Lake",
+		description: "The beautiful lake",
+		latitude: 16.8071,
+		longitude: 96.1645,
+	},
+	{
+		id: 3,
+		name: "Inya Lake",
+		description: "The famous lake",
+		latitude: 16.8284,
+		longitude: 96.1539,
+	},
+	{
+		id: 4,
+		name: "Aung Min Galar",
+		description: "The Bus Terminal in Yangon",
+		latitude: 16.9314431515,
+		longitude: 96.1577509863,
+	},
+	{
+		id: 5,
+		name: "Yangon International Airport",
+		description: "The Airport of Yangon",
+		latitude: 16.903075,
+		longitude: 96.135403,
+	},
+	{
+		id: 6,
+		name: "Myanmar ICT Park",
+		description: "The Main Building of MICT",
+		latitude: 16.84965,
+		longitude: 96.12927,
+	},
+	{
+		id: 7,
+		name: "The White House",
+		description: "Washington DC,USA",
+		latitude: 38.897957,
+		longitude: -77.03656,
+	},
+];

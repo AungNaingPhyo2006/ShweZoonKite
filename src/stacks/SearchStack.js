@@ -3,6 +3,7 @@ import React from 'react';
 import Timer from '../screens/entertainment/Timer';
 import {createStackNavigator} from '@react-navigation/stack';
 import DrawerTest from '../screens/DrawerTest';
+import SvgScreen from '../screens/testing/SvgScreen';
 
 const Stack = createStackNavigator();
 const SearchStack = () => {
@@ -14,8 +15,8 @@ const SearchStack = () => {
         options={{headerShown: false}}
       /> */}
       <Stack.Screen
-        name="DrawerTest"
-        component={DrawerTest}
+        name="SvgScreen"
+        component={SvgScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

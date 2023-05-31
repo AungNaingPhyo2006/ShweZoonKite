@@ -8,7 +8,7 @@ import Contact from '../screens/shopping/Contact';
 import DrawerFooter from '../screens/shopping/DrawerFooter';
 import BottomDrawer from '../screens/shopping/BottomDrawer';
 import BottomSheet from '../screens/shopping/BottomSheetPro';
-import BottomSheetPro from '../screens/shopping/BottomSheetPro';
+import SvgScreen from '../screens/testing/SvgScreen';
 const Stack = createStackNavigator();
 
 const SettingStack = () => {
@@ -46,8 +46,8 @@ const SettingStack = () => {
         options={{headerShown: false}}
       /> */}
       <Stack.Screen
-        name="BottomSheetPro"
-        component={BottomSheetPro}
+        name="SvgScreen"
+        component={SvgScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -25,35 +25,10 @@ function Article() {
 const DrawerTest = ({open, setOpen}) => {
   // const [open, setOpen] = useState(false);
   return (
-    // <Drawer.Navigator
-    //   drawerContentOptions={
-    //     {
-    //       // activeTintColor: 'red',
-    //       // inactiveTintColor: 'gray',
-    //       // labelStyle: {
-    //       //   fontSize: 16,
-    //       //   fontWeight: 'bold',
-    //       // },
-    //       // style: {
-    //       //   backgroundColor: 'lightblue',
-    //       //   paddingVertical: 20,
-    //       // },
-    //     }
-    //   }
-    //   drawerContent={({navigation, state}) => (
-    //     <DrawerButton
-    //       navigation={navigation}
-    //       isDrawerOpen={state.isDrawerOpen}
-    //     />
-    //   )}>
-    //   <Drawer.Screen name="Article" component={Article} />
-    // </Drawer.Navigator>
-    // <--------For left side drawer start---------->
-
     <Drawer
       open={open}
       onOpen={() => setOpen(true)}
-      onClose={() => setOpen(false)}
+      // onClose={() => setOpen(false)}
       // drawerPosition="right"
       renderDrawerContent={() => {
         //component you like

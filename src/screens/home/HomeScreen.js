@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FastImage from 'react-native-fast-image';
 
 const HomeScreen = ({navigation}) => {
   return (
@@ -45,6 +46,27 @@ const HomeScreen = ({navigation}) => {
         onPress={() => navigation.navigate('MapBottomSheet')}>
         <Text>Google Map One</Text>
       </TouchableOpacity>
+      {/* <=======GIF=========> */}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View>
+          <FastImage
+            source={require('../../assets/images/happy.gif')}
+            style={{
+              width: 200,
+              height: 200,
+              borderRadius: 100,
+              borderWidth: 3,
+              borderColor: 'blue',
+            }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </View>
+      </View>
     </View>
   );
 };

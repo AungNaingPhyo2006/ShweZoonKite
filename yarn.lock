@@ -3423,6 +3423,11 @@
   "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   "version" "4.0.0"
 
+"escape-string-regexp@2.0.0":
+  "integrity" "sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w=="
+  "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
+  "version" "2.0.0"
+
 "eslint-config-prettier@^8.5.0":
   "integrity" "sha512-bAF0eLpLVqP5oEVUFKpMA+NnRFICwn9X8B5jrR9FcqnYBuPbqWEjTEspPWMj5ye6czoSLDweCzSo3Ko7gGrZaA=="
   "resolved" "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.6.0.tgz"
@@ -4031,6 +4036,11 @@
   "resolved" "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz"
   "version" "1.0.0-beta.2"
 
+"geolib@^3.3.3":
+  "integrity" "sha512-YO704pzdB/8QQekQuDmFD5uv5RAwAf4rOUPdcMhdEOz+HoPWD0sC7Qqdwb+LAvwIjXVRawx0QgZlocKYh8PFOQ=="
+  "resolved" "https://registry.npmjs.org/geolib/-/geolib-3.3.3.tgz"
+  "version" "3.3.3"
+
 "get-caller-file@^2.0.1", "get-caller-file@^2.0.5":
   "integrity" "sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg=="
   "resolved" "https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz"
@@ -4399,7 +4409,7 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
-"invariant@*", "invariant@^2.2.4":
+"invariant@*", "invariant@^2.2.4", "invariant@2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   "version" "2.2.4"
@@ -5465,6 +5475,11 @@
   "version" "6.0.0"
   dependencies:
     "yallist" "^4.0.0"
+
+"lucide@^0.229.0":
+  "integrity" "sha512-Zb6eaDysJ8ZwaHGHLAH62VUW2r1v1WcZkgUACqowFObPS/tJrDzvJWbp7pjFGxO8bbHgq/2ME92Ag8Fk5dwGLA=="
+  "resolved" "https://registry.npmjs.org/lucide/-/lucide-0.229.0.tgz"
+  "version" "0.229.0"
 
 "make-dir@^2.0.0":
   "integrity" "sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA=="
@@ -6792,6 +6807,11 @@
     "prop-types" "^15.5.8"
     "tween-functions" "^1.0.1"
 
+"react-native-fast-image@^8.6.3":
+  "integrity" "sha512-Sdw4ESidXCXOmQ9EcYguNY2swyoWmx53kym2zRsvi+VeFCHEdkO+WG1DK+6W81juot40bbfLNhkc63QnWtesNg=="
+  "resolved" "https://registry.npmjs.org/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz"
+  "version" "8.6.3"
+
 "react-native-geolocation-service@^5.3.1":
   "integrity" "sha512-LTXPtPNmrdhx+yeWG47sAaCgQc3nG1z+HLLHlhK/5YfOgfLcAb9HAkhREPjQKPZOUx8pKZMIpdGFUGfJYtimXQ=="
   "resolved" "https://registry.npmjs.org/react-native-geolocation-service/-/react-native-geolocation-service-5.3.1.tgz"
@@ -6916,7 +6936,15 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@^0.71.3", "react-native@>= 0.59", "react-native@>= 0.64.3", "react-native@>=0.47.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.60.0-rc.2", "react-native@>=0.64.0", "react-native@>=0.65.0", "react-native@>=0.70.0":
+"react-native-webview@^12.1.0":
+  "integrity" "sha512-fuMyF4PBSIHHxv/3GgWO0LQbd7hRkLLDvZZIZw7gplSvH1YTahzw2wxnAt2K4Ua9UmsZ3w2MKgDamQCrdk4tdw=="
+  "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-12.1.0.tgz"
+  "version" "12.1.0"
+  dependencies:
+    "escape-string-regexp" "2.0.0"
+    "invariant" "2.2.4"
+
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@^0.71.3", "react-native@>= 0.59", "react-native@>= 0.64.3", "react-native@>=0.47.0", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.60.0", "react-native@>=0.60.0-rc.2", "react-native@>=0.64.0", "react-native@>=0.65.0", "react-native@>=0.70.0":
   "integrity" "sha512-RYJXCcQGa4NTfKiPgl92eRDUuQ6JGDnHqFEzRwJSqEx9lWvlvRRIebstJfurzPDKLQWQrvITR7aI7e09E25mLw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.3.tgz"
   "version" "0.71.3"
@@ -6978,7 +7006,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.23.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>= 17.0.1", "react@>=15.0.0", "react@>=16.0", "react@>=16.8.6", "react@>=17.0.0", "react@18.2.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", "react@^18.2.0", "react@>= 17.0.1", "react@>=15.0.0", "react@>=16.0", "react@>=16.8.6", "react@>=17.0.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
